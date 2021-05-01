@@ -6,7 +6,7 @@ import CodeOutput from './CodeOutput';
 
 function App() {
   return (
-      <div className="App ui container">
+      <div>
           <Header />
           <CodeInput />
           <CodeOutput />

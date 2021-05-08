@@ -2,7 +2,7 @@
 # https://stackoverflow.com/questions/592620/how-can-i-check-if-a-program-exists-from-a-bash-script
 if [ ! -d "/lib" ]
 then
-    mkdir "/lib"
+    mkdir "lib"
 fi
 
 # if ! [ -x "$(command -v git)" ]

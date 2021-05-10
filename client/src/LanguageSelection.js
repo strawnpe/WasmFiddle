@@ -18,7 +18,7 @@ class LanguageSelection extends React.Component {
             }, () => {
                 console.log(this.state.language);
             });
-            this.props.changeLang("clik");
+            this.props.changeLang("clike");
         } else if (event.target.value === "1") {
             this.setState({
                 language: "c++" 

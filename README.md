@@ -43,20 +43,22 @@ Clang and Rust to JavaScript using WebAssembly.
 ### Node Modules
 1. Install dependencies for server
 
-   ``` npm install```
+   ```cd server```
+
+   ```npm install```
 2. Install dependencies for client
 
-   ```cd client```
+   ```cd ../client```
 
    ```npm install```
 ## Running Project
 1. Confirm you are at root directory of project
 2. Start server at port 3001
-
+   ```cd ../server```
    ```npm start```
 3. Start client at port 3000
 
-   ```cd client```
+   ```cd ../client```
 
    ```npm start```
 4. Navigate to site in browser

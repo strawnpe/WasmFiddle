@@ -20,6 +20,23 @@ class CodeInput extends React.Component {
         this.setState({lang: newLang});
     }
 
+    sendData() {
+        try {
+            const data = fetch('THE_ADDRESS', {
+                method: 'POST',
+                headers: {},
+                body: JSON.stringify({
+                    language: this.state.language,
+                    text: this.state.text
+                })
+            });
+            console.log(data);
+            this.setState({compiledCode: data});
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     render() {
         return (
             <div className="ui card">
@@ -36,12 +53,13 @@ class CodeInput extends React.Component {
                         value: 'hello'
                     }}
                     onChange={(editor, data, value) => {
+                        this.state.text = value;
                     }}
                 />
                 <div className="extra content">
                     <div className="ui two buttons">
                         <div className="ui basic yellow button">Reset Code</div>
-                        <div className="ui basic olive button">Run</div>
+                        <div className="ui basic olive button" onClick={this.sendData}>Run</div>
                     </div>
                 </div>
             </div>

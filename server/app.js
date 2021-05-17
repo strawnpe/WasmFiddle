@@ -71,13 +71,38 @@ app.post('/upload-file',  (req, res) => {
             let currentTime = Date.now().toString();
             let uniqueFileName = currentTime + '-' + file.name;
 
+            let language = '';
+
+            let period = uniqueFileName.lastIndexOf('.');
+            let shortFileName = uniqueFileName.substring(0, period);
+            let fileExtension = uniqueFileName.substring(period + 1).toLowerCase();
+            console.log(shortFileName, fileExtension);
+
+            let acceptedExtensions = ['c', 'cpp', 'rs'];
+
+            if (!acceptedExtensions.includes(fileExtension)) {
+                res.send({
+                    status: false,
+                    message: 'Invalid file extension'
+                });
+            } else if (fileExtension === 'c') {
+                language = 'c';
+            } else if (fileExtension === 'cpp') {
+                language = 'c++';
+            } else {
+                language = 'rust';
+            }
+
             file.mv('./uploads/' + uniqueFileName);
+
+            // commands.compileToWasm(uniqueFileName, language);
 
             res.send({
                 status: true,
                 message: 'File successfully uploaded',
                 data: {
-                    name: uniqueFileName,
+                    fullName: uniqueFileName,
+                    shortName: shortFileName,
                     type: file.mimetype,
                     size: file.size
                 }

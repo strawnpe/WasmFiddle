@@ -14,9 +14,15 @@ function listFiles() {
 
 // test method to compile clang to wasm
 // reference: https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm
-function compileToWasm(filename) {
-    let buildFilePath = `samples/${filename}`
-    let buildCommand = `emcc ${buildFilePath}.c -s WASM=1 -o ${buildFilePath}.html`
+function compileToWasm(filename, language) {
+    let buildFilePath = `uploads/${filename}`
+    let buildCommand = '';
+    if (language === 'c' || language === 'c++') {
+        buildCommand = `emcc ${buildFilePath}.c -s WASM=1 -o ${buildFilePath}.html`;
+    }
+    else {
+        buildCommand = '';
+    }
     exec(buildCommand, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);

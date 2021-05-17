@@ -10,8 +10,12 @@ require('codemirror/mode/clike/clike')
 class CodeInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {lang: 'clike'};
+        this.state = {
+            lang: 'clike',
+            currentCode: '// Begin coding here!'
+        };
 
+        this.uploadFileData = this.uploadFileData.bind(this);
         this.toggleLanguage = this.toggleLanguage.bind(this);
     }
 
@@ -20,20 +24,24 @@ class CodeInput extends React.Component {
         this.setState({lang: newLang});
     }
 
+    uploadFileData(newCode) {
+        this.setState({currentCode: newCode});
+    }
+
     render() {
         return (
             <div className="ui card">
                 <div className="content">
                     <h2 className="ui teal header">Code Input</h2>
                     <LanguageSelection changeLang={this.toggleLanguage}/>
-                    <FileUpload />
+                    <FileUpload setContent={this.uploadFileData}/>
                 </div>
                 <CodeMirror
+                    value={this.state.currentCode}
                     options={{
                         mode: this.state.lang,
                         theme: 'material',
                         lineNumbers: true,
-                        value: 'hello'
                     }}
                     onChange={(editor, data, value) => {
                     }}

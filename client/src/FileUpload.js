@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 class FileUpload extends React.Component {
     constructor(props) {

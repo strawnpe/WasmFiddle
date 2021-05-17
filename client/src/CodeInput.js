@@ -53,7 +53,7 @@ class CodeInput extends React.Component {
                         value: 'hello'
                     }}
                     onChange={(editor, data, value) => {
-                        this.state.text = value;
+                        this.setState({text: value});
                     }}
                 />
                 <div className="extra content">

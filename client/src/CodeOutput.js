@@ -6,6 +6,7 @@ class CodeOutput extends React.Component {
         this.state = {data: null};
         //const [data, setData] = React.useState(compiledCode);
         const data = null;
+        console.log(data);
 
         this.compiledCode = this.compiledCode.bind(this);
     };

@@ -65,6 +65,48 @@ Clang and Rust to JavaScript using WebAssembly.
 
    ```localhost:3000```
 
+# API
+After starting the server per the above instructions, each endpoint can be run 
+by navigating to `http://localhost:3001` + the route.
+## GET *
+`http://localhost:3001/`
+
+Default route that returns the React app
+## GET /api
+`http://localhost:3001/api`
+
+A test endpoint that returns a string
+## GET /list
+*To be deleted later*
+
+`http://localhost:3001/list`
+
+A test endpoint to list files in the server file system
+## GET /files
+`http://localhost:3001/files`
+
+Lists all files within the `uploads` directory and their paths
+## GET /emsdk
+*To be deleted later*
+
+`http://localhost:3001/emsdk`
+
+A test endpoint to call the emsdk on the server
+## GET /files/:name
+`http://localhost:3001/files/cat.png`
+
+An endpoint that downloads the specified file from the uploads folder
+## POST /upload-file
+`http://localhost:3001/upload-file`
+
+An endpoint that uploads a file into the uploads folder
+
+Request body type: `form-data`
+
+Request body key: `file`
+
+Request body value: `cat.png`
+
 # Resources
 - [Semantic UI](https://semantic-ui.com/)
 - [React Feather](https://github.com/feathericons/react-feather)

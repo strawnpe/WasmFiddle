@@ -22,7 +22,7 @@ class CodeInput extends React.Component {
 
     sendData() {
         try {
-            const data = fetch('THE_ADDRESS', {
+            const data = fetch('http://34.223.1.201:3001/file-upload', {
                 method: 'POST',
                 headers: {},
                 body: JSON.stringify({
@@ -39,6 +39,7 @@ class CodeInput extends React.Component {
 
     render() {
         return (
+            <>
             <div className="ui card">
                 <div className="content">
                     <h2 className="ui teal header">Code Input</h2>
@@ -53,16 +54,17 @@ class CodeInput extends React.Component {
                         value: 'hello'
                     }}
                     onChange={(editor, data, value) => {
-                        this.setState({text: value});
                     }}
                 />
                 <div className="extra content">
                     <div className="ui two buttons">
                         <div className="ui basic yellow button">Reset Code</div>
-                        <div className="ui basic olive button" onClick={this.sendData}>Run</div>
+                        <div className="ui basic olive button">Run</div>
                     </div>
                 </div>
             </div>
+            <CodeOutput></CodeOutput>
+            </>
         );
     }
 };

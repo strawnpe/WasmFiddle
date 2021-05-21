@@ -1,11 +1,12 @@
 import React from 'react';
 import LanguageSelection from "./LanguageSelection";
 import FileUpload from "./FileUpload";
+import CodeOutput from './CodeOutput';
 import {UnControlled as CodeMirror} from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 require('codemirror/mode/rust/rust');
-require('codemirror/mode/clike/clike')
+require('codemirror/mode/clike/clike');
 
 class CodeInput extends React.Component {
     constructor(props) {

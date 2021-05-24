@@ -95,7 +95,7 @@ app.post('/upload-file',  (req, res) => {
 
             file.mv('./uploads/' + uniqueFileName);
 
-            // commands.compileToWasm(uniqueFileName, language);
+            commands.compileToWasm(uniqueFileName, language);
 
             res.send({
                 status: true,

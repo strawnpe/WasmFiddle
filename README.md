@@ -13,7 +13,7 @@ display the output in the browser.
    ```git clone https://github.com/strawnpe/WasmFiddle.git```
 2. Change into project directory
 
-   ```cd WasmFiddle```
+   ```cd WasmFiddle/```
 ## Installing Dependencies
 ### Emscripten SDK
 The emscripten sdk (emsdk) is a library that compiles
@@ -21,13 +21,13 @@ Clang and Rust to JavaScript using WebAssembly.
 1. Confirm you are at root directory of project
 2. Change into ```lib``` directory
 
-   ```cd lib```
+   ```cd lib/```
 3. Clone the emsdk project
 
    ```git clone https://github.com/emscripten-core/emsdk.git```
 4. Change into the new directory
 
-   ```cd emsdk```
+   ```cd emsdk/```
 5. Fetch the latest version of the SDK
 
    ```git pull```
@@ -41,29 +41,27 @@ Clang and Rust to JavaScript using WebAssembly.
 
    ```source ./emsdk_env.sh```
 ### Node Modules
-1. Install dependencies for server
-
-   ```cd server```
+1. From root directory, install dependencies for server
 
    ```npm install```
 2. Install dependencies for client
 
-   ```cd ../client```
+   ```cd client/```
 
    ```npm install```
 ## Running Project
 1. Confirm you are at root directory of project
 2. Start server at port 3001
-   ```cd ../server```
+
    ```npm start```
 3. Start client at port 3000
 
-   ```cd ../client```
+   ```cd client/```
 
    ```npm start```
 4. Navigate to site in browser
 
-   ```localhost:3000```
+   ```http://localhost:3000```
 
 # API
 After starting the server per the above instructions, each endpoint can be run 

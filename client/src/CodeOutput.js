@@ -10,7 +10,7 @@ const CodeOutput = () => {
     }, []);
 
     return (
-        <div className="ui card">
+        <div className="ui fluid card">
             <div className="content">
                 <h2 className="ui teal header">Code Output</h2>
                 <p>{!data ? "Loading..." : data}</p>

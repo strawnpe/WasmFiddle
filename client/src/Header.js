@@ -2,7 +2,7 @@ import { Code } from "react-feather"; // https://github.com/feathericons/react-f
 
 const Header = () => {
     return (
-        <div className="ui card">
+        <div className="ui fluid card">
             <h1 className="ui blue header">
                 <Code color="black" size={38} />
                 <div className="content">

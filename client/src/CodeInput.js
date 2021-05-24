@@ -38,10 +38,11 @@ class CodeInput extends React.Component {
 
     render() {
         return (
-            <div className="ui card">
+            <div className="ui fluid card">
                 <div className="content">
                     <h2 className="ui teal header">Code Input</h2>
                     <LanguageSelection changeLang={this.toggleLanguage}/>
+                    <br />
                     <FileUpload setContent={this.changeCodeContent}/>
                 </div>
                 <CodeMirror
@@ -49,6 +50,7 @@ class CodeInput extends React.Component {
                     editorDidMount={editor => { this.setState({
                         instance: editor
                     });}}
+                    indentUnit={4}
                     options={{
                         mode: this.state.lang,
                         theme: 'eclipse',

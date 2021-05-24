@@ -1,6 +1,7 @@
 import React from 'react';
 import LanguageSelection from "./LanguageSelection";
 import FileUpload from "./FileUpload";
+import ResetCode from "./ResetCode";
 import {UnControlled as CodeMirror} from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -15,7 +16,7 @@ class CodeInput extends React.Component {
             currentCode: '// Begin coding here!'
         };
 
-        this.uploadFileData = this.uploadFileData.bind(this);
+        this.changeCodeContent = this.changeCodeContent.bind(this);
         this.toggleLanguage = this.toggleLanguage.bind(this);
     }
 
@@ -24,7 +25,7 @@ class CodeInput extends React.Component {
         this.setState({lang: newLang});
     }
 
-    uploadFileData(newCode) {
+    changeCodeContent(newCode) {
         this.setState({currentCode: newCode});
     }
 
@@ -34,7 +35,7 @@ class CodeInput extends React.Component {
                 <div className="content">
                     <h2 className="ui teal header">Code Input</h2>
                     <LanguageSelection changeLang={this.toggleLanguage}/>
-                    <FileUpload setContent={this.uploadFileData}/>
+                    <FileUpload setContent={this.changeCodeContent}/>
                 </div>
                 <CodeMirror
                     value={this.state.currentCode}
@@ -44,11 +45,12 @@ class CodeInput extends React.Component {
                         lineNumbers: true,
                     }}
                     onChange={(editor, data, value) => {
+                        this.changeCodeContent(value);
                     }}
                 />
                 <div className="extra content">
                     <div className="ui two buttons">
-                        <div className="ui basic yellow button">Reset Code</div>
+                        <ResetCode clearContent={this.changeCodeContent}/>
                         <div className="ui basic olive button">Run</div>
                     </div>
                 </div>

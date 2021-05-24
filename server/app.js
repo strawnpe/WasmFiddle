@@ -57,7 +57,7 @@ app.get("/emsdk", (req, res) => {
 });
 
 // upload a file to the /uploads directory
-app.post('/upload-file',  (req, res) => {
+app.post('/convert-file',  (req, res) => {
     try {
         if(!req.files) {
             res.send({
@@ -82,11 +82,15 @@ app.post('/upload-file',  (req, res) => {
 
                 commands.compileToWasm(uniqueFileName, language);
 
+                let period = uniqueFileName.lastIndexOf('.');
+                let shortFileName = uniqueFileName.substring(0, period);
+
                 res.send({
                     status: true,
                     message: 'File successfully uploaded',
                     data: {
                         fullName: uniqueFileName,
+                        shortName: shortFileName,
                         type: file.mimetype,
                         size: file.size
                     }

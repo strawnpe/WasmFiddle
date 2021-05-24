@@ -9,7 +9,7 @@ class ResetCode extends React.Component {
 
     clearCode(event) {
         event.preventDefault();
-        this.props.clearContent("");
+        this.props.clearContent();
     }
 
     render() {

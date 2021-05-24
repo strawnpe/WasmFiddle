@@ -7,9 +7,16 @@ import CodeOutput from './CodeOutput';
 function App() {
   return (
       <div>
+        <div>
           <Header />
-          <CodeInput />
-          <CodeOutput />
+        </div>
+        <br />
+        <div class="ui two column grid">
+          <div class="row">
+            <div class="column"><CodeInput /></div>
+            <div class="column"><CodeOutput /></div>
+          </div>
+        </div>          
       </div>
   );
 }

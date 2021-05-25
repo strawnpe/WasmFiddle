@@ -12,28 +12,14 @@ class LanguageSelection extends React.Component {
 
     handleChange(event) {
         console.log(event.target.value); 
-        if (event.target.value === "0") {
-            this.setState({
-                language: "c" 
-            }, () => {
-                console.log(this.state.language);
-            });
+        this.setState({ language: event.target.value }, () => console.log(this.state.language));
+        if (event.target.value === 'c') {
             this.props.changeLang("text/x-csrc");
-        } else if (event.target.value === "1") {
-            this.setState({
-                language: "c++" 
-            }, () => {
-                console.log(this.state.language);
-            });
+        } else if (event.target.value === 'c++') {
             this.props.changeLang("text/x-c++src");
-        } else if (event.target.value === "2") {
-            this.setState({
-                language: "rust" 
-            }, () => {
-                console.log(this.state.language);
-            });
+        } else {
             this.props.changeLang("rust");
-        }  
+        }
     }
 
     render () {
@@ -43,11 +29,10 @@ class LanguageSelection extends React.Component {
                     <h3 className="ui green header">Language Selection</h3>
                 </div>
                 <div className="content">
-                    <select className="ui fluid dropdown" onChange={this.handleChange}>
-                        <option value="">Language...</option>
-                        <option value="0">C</option>
-                        <option value="1">C++</option>
-                        <option value="2">Rust</option>
+                    <select className="ui fluid dropdown" label="Select Language" onChange={this.handleChange}>
+                        <option value="c">C</option>
+                        <option value="c++">C++</option>
+                        <option value="rust">Rust</option>
                     </select>
                 </div>
             </div>

@@ -1,0 +1,4 @@
+{
+    "language": { "type": "string", "enum": ["c", "c++", "rust"] },
+    "text": { "type": "string", "maxSize": 8192 }
+}

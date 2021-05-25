@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import Header from './Header';
 import CodeInput from './CodeInput';
-import CodeOutput from './CodeOutput';
 
 function App() {
   return (
@@ -11,12 +10,15 @@ function App() {
           <Header />
         </div>
         <br />
-        <div class="ui two column grid">
+        <div>
+          <CodeInput />
+        </div>
+        {/* <div class="ui two column grid">
           <div class="row">
             <div class="column"><CodeInput /></div>
             <div class="column"><CodeOutput /></div>
           </div>
-        </div>          
+        </div>           */}
       </div>
   );
 }

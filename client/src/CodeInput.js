@@ -21,6 +21,7 @@ class CodeInput extends React.Component {
         this.changeCodeContent = this.changeCodeContent.bind(this);
         this.clearCodeContent = this.clearCodeContent.bind(this);
         this.toggleLanguage = this.toggleLanguage.bind(this);
+        this.sendData = this.sendData.bind(this);
     }
 
     toggleLanguage(newLang) {
@@ -36,12 +37,9 @@ class CodeInput extends React.Component {
         this.state.instance.setValue('');
     }
 
-    sendData() {
-        console.log(
-            'sending data!'
-        );
+    sendData = async () => {
         try {
-            const result = fetch('http://34.223.1.201:3001/compile-file', {
+            const result = await fetch('http://34.223.1.201:3001/compile-file', {
                 method: 'POST',
                 headers: {},
                 body: JSON.stringify({

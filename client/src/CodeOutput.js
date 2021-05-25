@@ -45,7 +45,7 @@ class CodeOutput extends React.Component {
     // }, []);
     render() {
         return (
-            <div className="ui card">
+            <div className="ui fluid card">
                 <div className="content">
                     <h2 className="ui teal header">Code Output</h2>
                     <p>{!this.data ? "Loading..." : this.data}</p>

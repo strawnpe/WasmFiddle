@@ -4,7 +4,7 @@ class LanguageSelection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            language: "c"
+            language: "text/x-csrc"
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -13,8 +13,10 @@ class LanguageSelection extends React.Component {
     handleChange(event) {
         console.log(event.target.value); 
         this.setState({ language: event.target.value }, () => console.log(this.state.language));
-        if (event.target.value !== 'rust') {
-            this.props.changeLang("clike");
+        if (event.target.value === 'c') {
+            this.props.changeLang("text/x-csrc");
+        } else if (event.target.value === 'c++') {
+            this.props.changeLang("text/x-c++src");
         } else {
             this.props.changeLang("rust");
         }

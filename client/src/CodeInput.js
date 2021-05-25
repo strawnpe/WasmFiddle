@@ -2,17 +2,24 @@ import React from 'react';
 import LanguageSelection from "./LanguageSelection";
 import FileUpload from "./FileUpload";
 import CodeOutput from './CodeOutput';
+import ResetCode from "./ResetCode";
 import {UnControlled as CodeMirror} from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
+import 'codemirror/theme/eclipse.css';
 require('codemirror/mode/rust/rust');
 require('codemirror/mode/clike/clike');
 
 class CodeInput extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {lang: 'clike'};
+        this.state = {
+            lang: 'text/x-csrc',
+            currentCode: '// Begin coding here!',
+            instance: null
+        };
 
+        this.changeCodeContent = this.changeCodeContent.bind(this);
+        this.clearCodeContent = this.clearCodeContent.bind(this);
         this.toggleLanguage = this.toggleLanguage.bind(this);
     }
 
@@ -21,51 +28,47 @@ class CodeInput extends React.Component {
         this.setState({lang: newLang});
     }
 
-    sendData() {
-        try {
-            const result = fetch('http://34.223.1.201:3001/compile-file', {
-                method: 'POST',
-                headers: {},
-                body: JSON.stringify({
-                    language: this.state.language,
-                    text: this.state.text
-                })
-            });
-            console.log(result);
-            this.setState({fetchCode: true, filename: result.data.fullName});
-        } catch (e) {
-            console.log(e);
-        }
+    changeCodeContent(newCode) {
+        this.setState({currentCode: newCode});
+    }
+
+    clearCodeContent() {
+        this.state.instance.setValue('');
     }
 
     render() {
         return (
-            <>
-            <div className="ui card">
+        <>
+            <div className="ui fluid card">
                 <div className="content">
                     <h2 className="ui teal header">Code Input</h2>
                     <LanguageSelection changeLang={this.toggleLanguage}/>
-                    <FileUpload />
+                    <br />
+                    <FileUpload setContent={this.changeCodeContent}/>
                 </div>
                 <CodeMirror
+                    value={this.state.currentCode}
+                    editorDidMount={editor => { this.setState({
+                        instance: editor
+                    });}}
+                    indentUnit={4}
                     options={{
                         mode: this.state.lang,
-                        theme: 'material',
+                        theme: 'eclipse',
                         lineNumbers: true,
-                        value: 'hello'
                     }}
                     onChange={(editor, data, value) => {
                     }}
                 />
                 <div className="extra content">
                     <div className="ui two buttons">
-                        <div className="ui basic yellow button">Reset Code</div>
+                        <ResetCode clearContent={this.clearCodeContent}/>
                         <div className="ui basic olive button">Run</div>
                     </div>
                 </div>
             </div>
             <CodeOutput changeOutput={this.sendData}></CodeOutput>
-            </>
+        </>
         );
     }
 };

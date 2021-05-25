@@ -36,39 +36,63 @@ class CodeInput extends React.Component {
         this.state.instance.setValue('');
     }
 
+    sendData() {
+        console.log(
+            'sending data!'
+        );
+        try {
+            const result = fetch('http://34.223.1.201:3001/compile-file', {
+                method: 'POST',
+                headers: {},
+                body: JSON.stringify({
+                    language: this.state.language,
+                    text: this.state.text
+                })
+            });
+            console.log(result);
+            this.setState({fetchCode: true, filename: result.data.fullName});
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     render() {
         return (
-        <>
-            <div className="ui fluid card">
-                <div className="content">
-                    <h2 className="ui teal header">Code Input</h2>
-                    <LanguageSelection changeLang={this.toggleLanguage}/>
-                    <br />
-                    <FileUpload setContent={this.changeCodeContent}/>
-                </div>
-                <CodeMirror
-                    value={this.state.currentCode}
-                    editorDidMount={editor => { this.setState({
-                        instance: editor
-                    });}}
-                    indentUnit={4}
-                    options={{
-                        mode: this.state.lang,
-                        theme: 'eclipse',
-                        lineNumbers: true,
-                    }}
-                    onChange={(editor, data, value) => {
-                    }}
-                />
-                <div className="extra content">
-                    <div className="ui two buttons">
-                        <ResetCode clearContent={this.clearCodeContent}/>
-                        <div className="ui basic olive button">Run</div>
+        <div class="ui two column grid">
+            <div class="column">
+                <div className="ui fluid card">
+                    <div className="content">
+                        <h2 className="ui teal header">Code Input</h2>
+                        <LanguageSelection changeLang={this.toggleLanguage}/>
+                        <br />
+                        <FileUpload setContent={this.changeCodeContent}/>
+                    </div>
+                    <CodeMirror
+                        value={this.state.currentCode}
+                        editorDidMount={editor => { this.setState({
+                            instance: editor
+                        });}}
+                        indentUnit={4}
+                        options={{
+                            mode: this.state.lang,
+                            theme: 'eclipse',
+                            lineNumbers: true,
+                        }}
+                        onChange={(editor, data, value) => {
+                        }}
+                    />
+                    <div className="extra content">
+                        <div className="ui two buttons">
+                            <ResetCode clearContent={this.clearCodeContent}/>
+                            <div className="ui basic olive button" onClick={this.sendData}>Run</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <CodeOutput changeOutput={this.sendData}></CodeOutput>
-        </>
+            <div class="ui two column grid">
+                <CodeOutput changeOutput={this.sendData}></CodeOutput>
+            </div>
+        </div>
         );
     }
 };

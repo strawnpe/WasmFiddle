@@ -17,11 +17,11 @@ class CodeOutput extends React.Component {
         let shortName = this.filename;
         if (this.filename.endsWith('.c') || this.filename.endsWith('.cpp') || this.filename.endsWith('.rs')) {
             const idx = this.filename.lastIndexOf('.');
-            shortName = input.substring(0, period);
+            shortName = shortName.substring(0, idx);
         }
         if (this.fetchCode) {
             try {
-                const compiledWasm = fetch(`http://34.223.1.201:3001/${shortname}.wasm`, {
+                const compiledWasm = fetch(`http://34.223.1.201:3001/${shortName}.wasm`, {
                     method: 'POST',
                     headers: {},
                     body: {}

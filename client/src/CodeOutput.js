@@ -8,8 +8,31 @@ class CodeOutput extends React.Component {
         const data = null;
         console.log(data);
 
-        this.compiledCode = this.compiledCode.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     };
+
+    handleChange(event) {
+        console.log(event.target.value);
+        this.setState({fetchCode: event.target.value.fetchCode, filename: event.target.value.filename});
+        let shortName = this.filename;
+        if (this.filename.endsWith('.c') || this.filename.endsWith('.cpp') || this.filename.endsWith('.rs')) {
+            const idx = this.filename.lastIndexOf('.');
+            shortName = input.substring(0, period);
+        }
+        if (this.fetchCode) {
+            try {
+                const compiledWasm = fetch(`http://34.223.1.201:3001/${shortname}.wasm`, {
+                    method: 'POST',
+                    headers: {},
+                    body: {}
+                });
+                console.log(compiledWasm);
+                this.setState({fetchCode: true});
+            } catch (e) {
+                console.log(e);
+            } 
+        }
+    }
 
     compiledCode(data) {
         console.log(data);

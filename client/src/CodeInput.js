@@ -23,7 +23,7 @@ class CodeInput extends React.Component {
 
     sendData() {
         try {
-            const data = fetch('http://34.223.1.201:3001/file-upload', {
+            const result = fetch('http://34.223.1.201:3001/compile-file', {
                 method: 'POST',
                 headers: {},
                 body: JSON.stringify({
@@ -31,8 +31,8 @@ class CodeInput extends React.Component {
                     text: this.state.text
                 })
             });
-            console.log(data);
-            this.setState({compiledCode: data});
+            console.log(result);
+            this.setState({fetchCode: true, filename: result.data.fullName});
         } catch (e) {
             console.log(e);
         }
@@ -64,7 +64,7 @@ class CodeInput extends React.Component {
                     </div>
                 </div>
             </div>
-            <CodeOutput></CodeOutput>
+            <CodeOutput changeOutput={this.sendData}></CodeOutput>
             </>
         );
     }

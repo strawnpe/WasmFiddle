@@ -39,8 +39,9 @@ class CodeInput extends React.Component {
 
     sendData = async () => {
         try {
-            const result = await fetch('http://34.223.1.201:3001/compile-file', {
+            const result = await fetch('https://wasmfiddle-314721.wl.r.appspot.com/convert-file', {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {},
                 body: JSON.stringify({
                     language: this.state.language,
@@ -88,7 +89,7 @@ class CodeInput extends React.Component {
                     </div>
                 </div>
             </div>
-            <div class="column">
+            <div className="column">
                 <CodeOutput changeOutput={this.sendData}></CodeOutput>
             </div>
             </div>

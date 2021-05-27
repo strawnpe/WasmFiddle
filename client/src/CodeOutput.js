@@ -23,7 +23,7 @@ class CodeOutput extends React.Component {
         if (this.fetchCode) {
             try {
                 instantiateStreaming(
-                    fetch('https://wasmfiddle-314721.wl.r.appspot.com/${shortName}.wasm')
+                    fetch(`https://wasmfiddle-314721.wl.r.appspot.com/${shortName}.wasm`)
                 ).then(rawModule => Object.assign({}, rawModule, {
                     main: input => {
                         // Create the string in memory and get the pointer

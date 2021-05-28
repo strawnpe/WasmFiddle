@@ -1,18 +1,28 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import "./App.css";
 import Header from './Header';
 import CodeInput from './CodeInput';
+import AboutPage from './AboutPage';
+import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   return (
       <div>
         <div>
-          <Header />
+          <a href="/"><Header /></a>
         </div>
         <br />
-        <div>
-          <CodeInput />
-        </div>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/">
+              <CodeInput />
+            </Route>
+          </Switch>
+        </BrowserRouter>
         {/* <div class="ui two column grid">
           <div class="row">
             <div class="column"><CodeInput /></div>

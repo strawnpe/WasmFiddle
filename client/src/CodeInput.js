@@ -56,8 +56,8 @@ class CodeInput extends React.Component {
 
     render() {
         return (
-        <div class="ui two column grid">
-            <div class="column">
+        <div className="ui two column grid">
+            <div className="column">
                 <div className="ui fluid card">
                     <div className="content">
                         <h2 className="ui teal header">Code Input</h2>
@@ -87,8 +87,15 @@ class CodeInput extends React.Component {
                     </div>
                 </div>
             </div>
-            <div class="ui two column grid">
+            <div className="ui two column grid">
                 <CodeOutput changeOutput={this.sendData}></CodeOutput>
+            </div>
+            <div className="ui fluid container">
+                <h3 className="ui header">
+                    <div className="content">
+                        <a href="/about">About WasmFiddle</a>
+                    </div>
+                </h3>
             </div>
         </div>
         );

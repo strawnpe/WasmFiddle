@@ -39,17 +39,18 @@ class CodeInput extends React.Component {
 
     sendData = async () => {
         try {
-            const result = await fetch('https://wasmfiddle-314721.wl.r.appspot.com/convert-file', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {},
-                body: JSON.stringify({
-                    language: this.state.language,
-                    text: this.state.text
-                })
-            });
-            console.log(result);
-            this.setState({fetchCode: true, filename: result.data.fullName});
+            // const result = await fetch('http://localhost:3001/convert-file', {
+            //     method: 'POST',
+            //     mode: 'no-cors',
+            //     headers: {},
+            //     body: JSON.stringify({
+            //         language: this.state.language,
+            //         text: this.state.text
+            //     })
+            // });
+            // console.log(result);
+            console.log('submitting');
+            this.setState({fetchCode: true, filename: `hello` });
         } catch (e) {
             console.log(e);
         }
@@ -90,7 +91,7 @@ class CodeInput extends React.Component {
                 </div>
             </div>
             <div className="column">
-                <CodeOutput changeOutput={this.sendData}></CodeOutput>
+                <CodeOutput filename={this.state.filename || null}></CodeOutput>
             </div>
             </div>
         </div>

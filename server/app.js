@@ -105,15 +105,23 @@ app.post('/convert-file',  (req, res) => {
 // download specific file by name from /uploads directory
 app.get("/files/:name", (req, res) => {
     const fileName = req.params.name;
-    const directoryPath = "./uploads/";
-
-    res.download(directoryPath + fileName, fileName, (err) => {
+    const directoryPath = "uploads";
+    console.log(`${__dirname}/${directoryPath}/${fileName}`);
+    res.sendFile(`${__dirname}/${directoryPath}/${fileName}`, { headers: {'Content-Type': 'text/html'} }, (err) => {
         if (err) {
             res.status(500).send({
-                message: "Error downloading file. " + err,
-            });
+            message: "Error sending file. " + err,
+            }); 
         }
     });
+
+    // res.download(directoryPath + fullFileName, fullFileName, (err) => {
+    //     if (err) {
+    //         res.status(500).send({
+    //             message: "Error downloading file. " + err,
+    //         });
+    //     }
+    // });
 });
 
 // All other GET requests not handled before will return our React app

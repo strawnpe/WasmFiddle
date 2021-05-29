@@ -33,7 +33,7 @@ class CodeOutput extends React.Component {
             <div className="ui fluid card">
                 <div className="content">
                     <h2 className="ui teal header">Code Output</h2>
-                    {wasm_url ? <div dangerouslySetInnerHTML={{ __html: iframeData }}/> : <p>Loading...</p>}
+                    {wasm_url ? <iframe src={wasm_url} title="Output Result"></iframe> : <p>Loading...</p>}
                 </div>
             </div>
         );

@@ -117,7 +117,7 @@ app.get("/emsdk", (req, res) => {
 // });
 
 // upload a file to the /uploads directory
-app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
+app.post('/send-file', cors(corsOptions), jsonParser, async (req, res) => {
     try {
         if(!req.body) {
             res.send({
@@ -141,7 +141,7 @@ app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
                     if (err) return console.log(err);
                     console.log(sourceText + '\nWritten to\n' + uniqueFileName);
                 });
-
+                await new Promise(resolve => setTimeout(resolve, 3000));
                 commands.compileToWasm(uniqueFileName, sourceLanguage);
 
                 let period = uniqueFileName.lastIndexOf('.');
@@ -163,9 +163,10 @@ app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
 });
 
 // download specific file by name from /uploads directory
-app.get("/files/:name", (req, res) => {
+app.get("/files/:name", async (req, res) => {
     const fileName = req.params.name;
     const directoryPath = "uploads";
+    await new Promise(resolve => setTimeout(resolve, 3000));
     res.sendFile(`${__dirname}/${directoryPath}/${fileName}`, { headers: {'Content-Type': 'text/html'} }, (err) => {
         if (err) {
             res.status(500).send({

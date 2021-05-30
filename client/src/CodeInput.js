@@ -39,16 +39,18 @@ class CodeInput extends React.Component {
 
     sendData = async () => {
         try {
-            const result = await fetch('http://34.223.1.201:3001/compile-file', {
-                method: 'POST',
-                headers: {},
-                body: JSON.stringify({
-                    language: this.state.language,
-                    text: this.state.text
-                })
-            });
-            console.log(result);
-            this.setState({fetchCode: true, filename: result.data.fullName});
+            // const result = await fetch('http://localhost:3001/convert-file', {
+            //     method: 'POST',
+            //     mode: 'no-cors',
+            //     headers: {},
+            //     body: JSON.stringify({
+            //         language: this.state.language,
+            //         text: this.state.text
+            //     })
+            // });
+            // console.log(result);
+            console.log('submitting');
+            this.setState({fetchCode: true, filename: `hello` });
         } catch (e) {
             console.log(e);
         }
@@ -56,8 +58,9 @@ class CodeInput extends React.Component {
 
     render() {
         return (
-        <div class="ui two column grid">
-            <div class="column">
+        <div className="ui two column grid">
+            <div className="row">
+            <div className="column">
                 <div className="ui fluid card">
                     <div className="content">
                         <h2 className="ui teal header">Code Input</h2>
@@ -87,8 +90,9 @@ class CodeInput extends React.Component {
                     </div>
                 </div>
             </div>
-            <div class="ui two column grid">
-                <CodeOutput changeOutput={this.sendData}></CodeOutput>
+            <div className="column">
+                <CodeOutput filename={this.state.filename || null}></CodeOutput>
+            </div>
             </div>
         </div>
         );

@@ -35,25 +35,26 @@ function compileToWasm(filename, language) {
     });
 }
 
-function generateUniqueFileName(fileName) {
+function generateUniqueFileName(language) {
     let currentTime = Date.now().toString();
-    let uniqueFileName = currentTime + '-' + fileName;
+    let uniqueFileName = currentTime;
+    if (language === 'c') {
+        uniqueFileName += '.c';
+    } else if (language === 'c++') {
+        uniqueFileName += '.cpp';
+    } else if (language === 'rust') {
+        uniqueFileName += '.rs';
+    }
     return uniqueFileName;
 }
 
-function getLanguageType(fileName) {
-    let language = null;
-    let period = fileName.lastIndexOf('.');
-    let fileExtension = fileName.substring(period + 1).toLowerCase();
-
-    if (fileExtension === 'c') {
-        language = 'c';
-    } else if (fileExtension === 'cpp') {
-        language = 'c++';
-    } else if (fileExtension === 'rs') {
-        language = 'rust';
+function isValidLanguage(language) {
+    let validLanguages = ['c++', 'c', 'rust'];
+    if (validLanguages.includes(language)) {
+        return true;
+    } else {
+        return false;
     }
-    return language;
 }
 
-module.exports = { listFiles, compileToWasm, generateUniqueFileName, getLanguageType };
+module.exports = { listFiles, compileToWasm, generateUniqueFileName, isValidLanguage };

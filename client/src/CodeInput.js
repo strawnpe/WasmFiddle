@@ -39,7 +39,7 @@ class CodeInput extends React.Component {
 
     sendData = async () => {
         try {
-            const result = await fetch('http://34.223.1.201:3001/compile-file', {
+            const result = await fetch('localhost:3001/send-text', {
                 method: 'POST',
                 headers: {},
                 body: JSON.stringify({

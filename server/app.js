@@ -128,7 +128,7 @@ app.post('/send-file',  (req, res) => {
                     console.log(sourceText + '\nWritten to\n' + uniqueFileName);
                 });
 
-                // commands.compileToWasm(uniqueFileName, sourceLanguage);
+                commands.compileToWasm(uniqueFileName, sourceLanguage);
 
                 let period = uniqueFileName.lastIndexOf('.');
                 let shortFileName = uniqueFileName.substring(0, period);

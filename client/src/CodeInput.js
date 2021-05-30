@@ -39,9 +39,13 @@ class CodeInput extends React.Component {
 
     sendData = async () => {
         try {
-            const result = await fetch('localhost:3001/send-text', {
+            const result = await fetch('http://localhost:3001/send-file', {
                 method: 'POST',
-                headers: {},
+                mode: 'no-cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     language: this.state.language,
                     text: this.state.text

@@ -14,7 +14,7 @@ class ResetCode extends React.Component {
 
     render() {
         return (
-            <button class="negative ui button" onClick={this.clearCode}>Reset Code</button>
+            <button className="negative ui button" onClick={this.clearCode}>Reset Code</button>
         );
     }
 }

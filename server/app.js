@@ -4,6 +4,12 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const commands = require('./compileToWasm');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+}
 
 global.__basedir = __dirname;
 
@@ -17,6 +23,14 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(fileUpload({
     createParentPath: true
 }));
+
+const jsonParser = bodyParser.json()
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // just a test
 app.get("/api", (req, res) => {
@@ -103,7 +117,7 @@ app.get("/emsdk", (req, res) => {
 // });
 
 // upload a file to the /uploads directory
-app.post('/send-file',  (req, res) => {
+app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
     try {
         if(!req.body) {
             res.send({
@@ -111,7 +125,7 @@ app.post('/send-file',  (req, res) => {
                 message: 'No text uploaded'
             });
         } else {
-            let sourceLanguage = req.body.language.toLowerCase();
+            let sourceLanguage = req.body.language;
             let sourceText = req.body.text;
 
             if (!commands.isValidLanguage(sourceLanguage)) {
@@ -138,9 +152,7 @@ app.post('/send-file',  (req, res) => {
                     message: 'File successfully saved',
                     data: {
                         fullName: uniqueFileName,
-                        shortName: shortFileName,
-                        type: file.mimetype,
-                        size: file.size
+                        shortName: shortFileName
                     }
                 });
             }

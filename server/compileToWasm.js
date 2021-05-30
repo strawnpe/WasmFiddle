@@ -18,7 +18,7 @@ function compileToWasm(filename, language) {
     let buildCommand = '';
     let period = filename.lastIndexOf('.');
     let shortFileName = filename.substring(0, period);
-    if (language === 'c' || language === 'c++') {
+    if (language === 'text/x-csrc' || language === 'text/x-c++src') {
         buildCommand = `emcc uploads/${filename} -s WASM=1 -o uploads/${shortFileName}.html`;
     }
     else {
@@ -38,9 +38,9 @@ function compileToWasm(filename, language) {
 function generateUniqueFileName(language) {
     let currentTime = Date.now().toString();
     let uniqueFileName = currentTime;
-    if (language === 'c') {
+    if (language === 'text/x-csrc') {
         uniqueFileName += '.c';
-    } else if (language === 'c++') {
+    } else if (language === 'text/x-c++src') {
         uniqueFileName += '.cpp';
     } else if (language === 'rust') {
         uniqueFileName += '.rs';
@@ -49,7 +49,7 @@ function generateUniqueFileName(language) {
 }
 
 function isValidLanguage(language) {
-    let validLanguages = ['c++', 'c', 'rust'];
+    let validLanguages = ['text/x-csrc', 'text/x-c++src', 'rust'];
     if (validLanguages.includes(language)) {
         return true;
     } else {

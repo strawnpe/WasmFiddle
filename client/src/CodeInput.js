@@ -38,21 +38,22 @@ class CodeInput extends React.Component {
     }
 
     sendData = async () => {
+        const parsedBody = {
+            language: this.state.lang,
+            text: this.state.currentCode
+        };
         try {
             const result = await fetch('http://localhost:3001/send-file', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    language: this.state.language,
-                    text: this.state.text
-                })
+                body: JSON.stringify(parsedBody)
             });
-            console.log(result);
-            this.setState({fetchCode: true, filename: result.data.fullName});
+            const text = await result.text();
+            const textToJSON = JSON.parse(text);
+            this.setState({fetchCode: true, filename: textToJSON.data.fullName});
         } catch (e) {
             console.log(e);
         }

@@ -45,7 +45,7 @@ app.get("/list", (req, res) => {
 
 // list files in /uploads directory
 app.get("/files", (req, res) => {
-    const directoryPath = "./uploads/";
+    const directoryPath = "./server/uploads/";
 
     fs.readdir(directoryPath, (err, files) => {
         if (err)
@@ -137,7 +137,7 @@ app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
 
                 let uniqueFileName = commands.generateUniqueFileName(sourceLanguage);
 
-                fs.writeFile('./uploads/' + uniqueFileName, sourceText, function (err) {
+                fs.writeFile('./server/uploads/' + uniqueFileName, sourceText, function (err) {
                     if (err) return console.log(err);
                     console.log(sourceText + '\nWritten to\n' + uniqueFileName);
                 });
@@ -165,7 +165,7 @@ app.post('/send-file', cors(corsOptions), jsonParser, (req, res) => {
 // download specific file by name from /uploads directory
 app.get("/files/:name", (req, res) => {
     const fileName = req.params.name;
-    const directoryPath = "./uploads/";
+    const directoryPath = "./server/uploads/";
 
     res.download(directoryPath + fileName, fileName, (err) => {
         if (err) {

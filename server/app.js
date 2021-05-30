@@ -106,7 +106,6 @@ app.post('/convert-file',  (req, res) => {
 app.get("/files/:name", (req, res) => {
     const fileName = req.params.name;
     const directoryPath = "uploads";
-    console.log(`${__dirname}/${directoryPath}/${fileName}`);
     res.sendFile(`${__dirname}/${directoryPath}/${fileName}`, { headers: {'Content-Type': 'text/html'} }, (err) => {
         if (err) {
             res.status(500).send({

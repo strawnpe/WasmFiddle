@@ -23,17 +23,16 @@ class CodeOutput extends React.Component {
     }
     render() {
         let wasm_url;
-        let iframeData;
+        //let iframeData;
         if (this.state.filename) {
             wasm_url = `http://localhost:3001/files/${this.state.filename}.html`
-            iframeData=`<iframe src="${wasm_url}" width="540" height="450"></iframe>`;
         }
         console.log(wasm_url);
         return (
             <div className="ui fluid card">
                 <div className="content">
                     <h2 className="ui teal header">Code Output</h2>
-                    {wasm_url ? <iframe src={wasm_url} title="Output Result"></iframe> : <p>Loading...</p>}
+                    {wasm_url ? <iframe src={wasm_url} title="Output Result" width="500px"></iframe> : <p>Loading...</p>}
                 </div>
             </div>
         );

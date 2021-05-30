@@ -4,6 +4,12 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const commands = require('./compileToWasm');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+}
 
 global.__basedir = __dirname;
 
@@ -18,6 +24,14 @@ app.use(fileUpload({
     createParentPath: true
 }));
 
+const jsonParser = bodyParser.json()
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // just a test
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
@@ -31,7 +45,7 @@ app.get("/list", (req, res) => {
 
 // list files in /uploads directory
 app.get("/files", (req, res) => {
-    const directoryPath = "./uploads/";
+    const directoryPath = "./server/uploads/";
 
     fs.readdir(directoryPath, (err, files) => {
         if (err)
@@ -56,43 +70,89 @@ app.get("/emsdk", (req, res) => {
     res.json({ message: "Compiling files (see command line)" });
 });
 
+// // upload a file to the /uploads directory
+// app.post('/convert-file',  (req, res) => {
+//     try {
+//         if(!req.files) {
+//             res.send({
+//                 status: false,
+//                 message: 'No file uploaded'
+//             });
+//         } else {
+//             let file = req.files.file;
+//
+//             // generate unique name using datetime
+//             let uniqueFileName = commands.generateUniqueFileName(file.name);
+//
+//             let language = commands.getLanguageType(file.name);
+//
+//             if (!language) {
+//                 res.send({
+//                     status: false,
+//                     message: 'Invalid file extension'
+//                 });
+//             } else {
+//                 file.mv('./uploads/' + uniqueFileName);
+//
+//                 commands.compileToWasm(uniqueFileName, language);
+//
+//                 let period = uniqueFileName.lastIndexOf('.');
+//                 let shortFileName = uniqueFileName.substring(0, period);
+//
+//                 res.send({
+//                     status: true,
+//                     message: 'File successfully uploaded',
+//                     data: {
+//                         fullName: uniqueFileName,
+//                         shortName: shortFileName,
+//                         type: file.mimetype,
+//                         size: file.size
+//                     }
+//                 });
+//             }
+//         }
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
+
 // upload a file to the /uploads directory
-app.post('/convert-file',  (req, res) => {
+app.post('/send-file', cors(corsOptions), jsonParser, async (req, res) => {
     try {
-        if(!req.files) {
+        if(!req.body) {
             res.send({
                 status: false,
-                message: 'No file uploaded'
+                message: 'No text uploaded'
             });
         } else {
-            let file = req.files.file;
+            let sourceLanguage = req.body.language;
+            let sourceText = req.body.text;
 
-            // generate unique name using datetime
-            let uniqueFileName = commands.generateUniqueFileName(file.name);
-
-            let language = commands.getLanguageType(file.name);
-
-            if (!language) {
+            if (!commands.isValidLanguage(sourceLanguage)) {
                 res.send({
                     status: false,
-                    message: 'Invalid file extension'
+                    message: 'Invalid language type'
                 });
             } else {
-                file.mv('./uploads/' + uniqueFileName);
 
-                commands.compileToWasm(uniqueFileName, language);
+                let uniqueFileName = commands.generateUniqueFileName(sourceLanguage);
+
+                fs.writeFile('./server/uploads/' + uniqueFileName, sourceText, function (err) {
+                    if (err) return console.log(err);
+                    console.log(sourceText + '\nWritten to\n' + uniqueFileName);
+                });
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                commands.compileToWasm(uniqueFileName, sourceLanguage);
 
                 let period = uniqueFileName.lastIndexOf('.');
                 let shortFileName = uniqueFileName.substring(0, period);
 
                 res.send({
                     status: true,
-                    message: 'File successfully uploaded',
+                    message: 'File successfully saved',
                     data: {
                         fullName: uniqueFileName,
-                        shortName: shortFileName,
-                        type: file.mimetype,
-                        size: file.size
+                        shortName: shortFileName
                     }
                 });
             }
@@ -103,9 +163,10 @@ app.post('/convert-file',  (req, res) => {
 });
 
 // download specific file by name from /uploads directory
-app.get("/files/:name", (req, res) => {
+app.get("/files/:name", async (req, res) => {
     const fileName = req.params.name;
     const directoryPath = "uploads";
+    await new Promise(resolve => setTimeout(resolve, 3000));
     res.sendFile(`${__dirname}/${directoryPath}/${fileName}`, { headers: {'Content-Type': 'text/html'} }, (err) => {
         if (err) {
             res.status(500).send({

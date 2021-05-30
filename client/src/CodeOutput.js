@@ -23,7 +23,6 @@ class CodeOutput extends React.Component {
     }
     render() {
         let wasm_url;
-        //let iframeData;
         if (this.state.filename) {
             wasm_url = `http://localhost:3001/files/${this.state.filename}.html`
         }

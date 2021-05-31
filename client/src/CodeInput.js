@@ -53,7 +53,7 @@ class CodeInput extends React.Component {
             });
             const text = await result.text();
             const textToJSON = JSON.parse(text);
-            this.setState({fetchCode: true, filename: textToJSON.data.fullName});
+            this.setState({filename: textToJSON.data.fullName});
         } catch (e) {
             console.log(e);
         }
@@ -83,6 +83,7 @@ class CodeInput extends React.Component {
                             lineNumbers: true,
                         }}
                         onChange={(editor, data, value) => {
+                            this.setState({currentCode: value});
                         }}
                     />
                     <div className="extra content">

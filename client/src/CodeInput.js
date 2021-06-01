@@ -38,6 +38,7 @@ class CodeInput extends React.Component {
     }
 
     sendData = async () => {
+        this.setState({currentCode: this.state.instance.getValue() || '' });
         const parsedBody = {
             language: this.state.lang,
             text: this.state.currentCode
@@ -83,7 +84,6 @@ class CodeInput extends React.Component {
                             lineNumbers: true,
                         }}
                         onChange={(editor, data, value) => {
-                            this.setState({currentCode: value});
                         }}
                     />
                     <div className="extra content">

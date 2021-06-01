@@ -26,7 +26,6 @@ class CodeOutput extends React.Component {
         if (this.state.filename) {
             wasm_url = `http://localhost:3001/files/${this.state.filename}.html`
         }
-        console.log(wasm_url);
         return (
             <div className="ui fluid card">
                 <div className="content">

@@ -38,6 +38,7 @@ class CodeInput extends React.Component {
     }
 
     sendData = async () => {
+        this.setState({currentCode: this.state.instance.getValue() || '' });
         const parsedBody = {
             language: this.state.lang,
             text: this.state.currentCode
@@ -53,7 +54,7 @@ class CodeInput extends React.Component {
             });
             const text = await result.text();
             const textToJSON = JSON.parse(text);
-            this.setState({fetchCode: true, filename: textToJSON.data.fullName});
+            this.setState({filename: textToJSON.data.fullName});
         } catch (e) {
             console.log(e);
         }

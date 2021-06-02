@@ -29,6 +29,32 @@ Clang and Rust to JavaScript using WebAssembly.
 2. Run the setup script
 
    ```./setup.sh```
+
+If you have trouble running the above scripts, it may be due 
+to a reported edge case on the Catalina OS. In that case 
+use the following instructions.
+1. Confirm you are at root directory of project 
+2. Change into lib directory
+
+   ```cd lib/```
+3. Clone the emsdk project
+
+   ```git clone https://github.com/emscripten-core/emsdk.git```
+4. Change into the new directory 
+
+   ```cd emsdk/```
+5. Fetch the latest version of the SDK
+
+   ```git pull```
+6. Download and install the latest
+
+   ```python3 ./emsdk.py install latest```
+7. Make the latest installation active
+
+   ```python3 ./emsdk.py activate latest```
+8. Activate environment variables
+
+   ```source ./emsdk_env.sh```
 ## Running Project
 1. Confirm you are at root directory of project
 2. Start the server

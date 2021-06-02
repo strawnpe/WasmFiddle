@@ -15,17 +15,32 @@ display the output in the browser.
 
    ```cd WasmFiddle/```
 ## Installing Dependencies
+### Node Modules
+1. From root directory, install client dependencies and create build
+
+   ```npm run build```
+2. Install dependencies for the server
+
+   ```npm install```
 ### Emscripten SDK
 The emscripten sdk (emsdk) is a library that compiles
 Clang and Rust to JavaScript using WebAssembly.
 1. Confirm you are at root directory of project
-2. Change into ```lib``` directory
+2. Run the setup script
+
+   ```./setup.sh```
+
+If you have trouble running the above scripts, it may be due 
+to a reported edge case on the Catalina OS. In that case 
+use the following instructions.
+1. Confirm you are at root directory of project 
+2. Change into lib directory
 
    ```cd lib/```
 3. Clone the emsdk project
 
    ```git clone https://github.com/emscripten-core/emsdk.git```
-4. Change into the new directory
+4. Change into the new directory 
 
    ```cd emsdk/```
 5. Fetch the latest version of the SDK
@@ -33,35 +48,21 @@ Clang and Rust to JavaScript using WebAssembly.
    ```git pull```
 6. Download and install the latest
 
-   ```./emsdk install latest```
+   ```python3 ./emsdk.py install latest```
 7. Make the latest installation active
 
-   ```./emsdk activate latest```
+   ```python3 ./emsdk.py activate latest```
 8. Activate environment variables
 
    ```source ./emsdk_env.sh```
-### Node Modules
-1. From root directory, install dependencies for server
-
-   ```npm install```
-2. Install dependencies for client
-
-   ```cd client/```
-
-   ```npm install```
 ## Running Project
 1. Confirm you are at root directory of project
-2. Start server at port 3001
+2. Start the server
 
    ```npm start```
-3. Start client at port 3000
+3. Navigate to site in browser
 
-   ```cd client/```
-
-   ```npm start```
-4. Navigate to site in browser
-
-   ```http://localhost:3000```
+   ```http://localhost:3001```
 
 # API
 After starting the server per the above instructions, each endpoint can be run 
@@ -74,36 +75,19 @@ Default route that returns the React app
 `http://localhost:3001/api`
 
 A test endpoint that returns a string
-## GET /list
-*To be deleted later*
-
-`http://localhost:3001/list`
-
-A test endpoint to list files in the server file system
 ## GET /files
 `http://localhost:3001/files`
 
 Lists all files within the `uploads` directory and their paths
-## GET /emsdk
-*To be deleted later*
-
-`http://localhost:3001/emsdk`
-
-A test endpoint to call the emsdk on the server
 ## GET /files/:name
 `http://localhost:3001/files/cat.png`
 
 An endpoint that downloads the specified file from the uploads folder
-## POST /upload-file
-`http://localhost:3001/upload-file`
+## POST /send-file
+`http://localhost:3001/send-file`
 
-An endpoint that uploads a file into the uploads folder
-
-Request body type: `form-data`
-
-Request body key: `file`
-
-Request body value: `cat.png`
+An endpoint that uploads a file into the uploads folder by accepting a string
+as input and converting the text to a file
 
 # Resources
 - [Semantic UI](https://semantic-ui.com/)

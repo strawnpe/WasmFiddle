@@ -37,12 +37,6 @@ app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
 });
 
-// testing that we can access command line through node
-app.get("/list", (req, res) => {
-    commands.listFiles();
-    res.json({ message: "Listing files (see command line)" });
-});
-
 // list files in /uploads directory
 app.get("/files", (req, res) => {
     const directoryPath = "./server/uploads/";
@@ -63,58 +57,6 @@ app.get("/files", (req, res) => {
         }
     })
 });
-
-// test endpoint that runs command via emsdk
-app.get("/emsdk", (req, res) => {
-    commands.compileToWasm('hello');
-    res.json({ message: "Compiling files (see command line)" });
-});
-
-// // upload a file to the /uploads directory
-// app.post('/convert-file',  (req, res) => {
-//     try {
-//         if(!req.files) {
-//             res.send({
-//                 status: false,
-//                 message: 'No file uploaded'
-//             });
-//         } else {
-//             let file = req.files.file;
-//
-//             // generate unique name using datetime
-//             let uniqueFileName = commands.generateUniqueFileName(file.name);
-//
-//             let language = commands.getLanguageType(file.name);
-//
-//             if (!language) {
-//                 res.send({
-//                     status: false,
-//                     message: 'Invalid file extension'
-//                 });
-//             } else {
-//                 file.mv('./uploads/' + uniqueFileName);
-//
-//                 commands.compileToWasm(uniqueFileName, language);
-//
-//                 let period = uniqueFileName.lastIndexOf('.');
-//                 let shortFileName = uniqueFileName.substring(0, period);
-//
-//                 res.send({
-//                     status: true,
-//                     message: 'File successfully uploaded',
-//                     data: {
-//                         fullName: uniqueFileName,
-//                         shortName: shortFileName,
-//                         type: file.mimetype,
-//                         size: file.size
-//                     }
-//                 });
-//             }
-//         }
-//     } catch (err) {
-//         res.status(500).send(err);
-//     }
-// });
 
 // upload a file to the /uploads directory
 app.post('/send-file', cors(corsOptions), jsonParser, async (req, res) => {
@@ -174,14 +116,6 @@ app.get("/files/:name", async (req, res) => {
             }); 
         }
     });
-
-    // res.download(directoryPath + fullFileName, fullFileName, (err) => {
-    //     if (err) {
-    //         res.status(500).send({
-    //             message: "Error downloading file. " + err,
-    //         });
-    //     }
-    // });
 });
 
 // All other GET requests not handled before will return our React app

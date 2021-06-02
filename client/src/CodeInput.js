@@ -89,7 +89,7 @@ class CodeInput extends React.Component {
                     <div className="extra content">
                         <div className="ui two buttons">
                             <ResetCode clearContent={this.clearCodeContent}/>
-                            <div className="ui basic olive button" onClick={this.sendData}>Run</div>
+                            <div className="ui positive button" onClick={this.sendData}>Run</div>
                         </div>
                     </div>
                 </div>
@@ -97,6 +97,13 @@ class CodeInput extends React.Component {
             <div className="column">
                 <CodeOutput filename={this.state.filename || null}></CodeOutput>
             </div>
+            </div>
+            <div className="ui fluid container">
+                <h3 className="ui header">
+                    <div className="content">
+                        <a href="/about">About WasmFiddle</a>
+                    </div>
+                </h3>
             </div>
         </div>
         );

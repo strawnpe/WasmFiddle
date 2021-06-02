@@ -11,6 +11,7 @@ class FileUpload extends React.Component {
     }
 
     readIn(event) {
+        this.props.setContent('');
         console.log(event.target.files[0]);
         this.setState({ fileOpened: true });
 

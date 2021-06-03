@@ -26,7 +26,10 @@ display the output in the browser.
 The emscripten sdk (emsdk) is a library that compiles
 Clang and Rust to JavaScript using WebAssembly.
 1. Confirm you are at root directory of project
-2. Run the setup script
+2. Run the following command to confirm setup.sh is an executable file
+
+   ```chmod +x setup.sh```
+3. Run the setup script
 
    ```./setup.sh```
 
